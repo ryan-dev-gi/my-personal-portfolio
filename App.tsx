@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ThreeScene from './components/ThreeScene';
@@ -177,57 +176,55 @@ const App: React.FC = () => {
     <section className="py-24 lg:py-32 bg-[#020617] min-h-screen">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
-          {/* Profile Sidebar */}
-          <div className="lg:w-1/3 lg:sticky top-32">
+          
+          {/* 3D Profile Sidebar */}
+          <div className="lg:w-1/3 lg:sticky top-32 tilt-3d-container">
             <Reveal>
-              <div className="glass-card rounded-[2.5rem] p-8 border-indigo-500/20 shadow-2xl space-y-8 group">
+              <div className="tilt-3d-card glass-card rounded-[2.5rem] p-8 border-indigo-500/40 border-2 shadow-[0_0_50px_rgba(79,70,229,0.15)] space-y-8 group relative overflow-hidden">
+                <div className="scan-line"></div>
+                
                 <div className="aspect-square rounded-[2rem] overflow-hidden relative border-4 border-indigo-500/10 transition-transform duration-500 group-hover:scale-[1.02]">
                   <img 
                     src={ABOUT_DATA.profileImage} 
                     alt="Ryan Cerda" 
                     className="w-full h-full object-cover" 
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=Ryan+Cerda&background=6366f1&color=fff&size=512';
+                    }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   <div className="absolute bottom-6 left-6">
                     <h3 className="text-2xl font-bold text-white mb-1">Cerda Ryan, A.</h3>
                     <p className="text-indigo-400 text-[10px] font-black uppercase tracking-widest">BSIT Graduate</p>
                   </div>
                 </div>
 
-                <div className="space-y-4 pt-4">
+                <div className="grid grid-cols-2 gap-3 pt-4">
                   {ABOUT_DATA.personalInfo.map((info, idx) => (
-                    <div key={idx} className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
-                      <span className="text-[9px] text-gray-500 font-black uppercase tracking-widest">{info.label}</span>
-                      <span className="text-sm text-gray-300 font-bold">{info.value}</span>
+                    <div key={idx} className="bg-white/5 p-4 rounded-2xl border border-white/5 text-center">
+                      <span className="text-[8px] text-gray-500 font-black uppercase tracking-widest block mb-1">{info.label}</span>
+                      <span className="text-xs text-gray-300 font-bold">{info.value}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="pt-2">
-                  <div className="flex justify-between items-center gap-2">
-                    {[
-                      { id: 'facebook', icon: 'fab fa-facebook-f' },
-                      { id: 'instagram', icon: 'fab fa-instagram' },
-                      { id: 'tiktok', icon: 'fab fa-tiktok' },
-                      { id: 'github', icon: 'fab fa-github' }
-                    ].map((social) => (
-                      <button
-                        key={social.id}
-                        onClick={() => handleSocialClick(social.id)}
-                        className="w-full h-12 rounded-xl bg-white/5 hover:bg-indigo-600 text-gray-400 hover:text-white border border-white/10 hover:border-indigo-500 transition-all duration-300 flex items-center justify-center shadow-lg"
-                        title={social.id.charAt(0).toUpperCase() + social.id.slice(1)}
-                      >
-                        <i className={social.icon}></i>
-                      </button>
-                    ))}
-                  </div>
+                <div className="flex justify-between items-center gap-2">
+                  {['facebook', 'instagram', 'tiktok', 'github'].map((social) => (
+                    <button
+                      key={social}
+                      onClick={() => handleSocialClick(social)}
+                      className="w-full h-12 rounded-xl bg-white/5 hover:bg-indigo-600 text-gray-400 hover:text-white border border-white/10 hover:border-indigo-500 transition-all duration-300 flex items-center justify-center shadow-lg"
+                    >
+                      <i className={`fab fa-${social}`}></i>
+                    </button>
+                  ))}
                 </div>
 
                 <button 
                   onClick={() => navigateTo('#contact')}
-                  className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl flex items-center justify-center gap-3 font-black uppercase tracking-widest text-[10px] transition-all shadow-xl shadow-indigo-500/10 active:scale-95"
+                  className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl flex items-center justify-center gap-3 font-black uppercase tracking-widest text-[10px] transition-all shadow-xl shadow-indigo-500/20 active:scale-95"
                 >
-                  Let's Collaborate <i className="fas fa-paper-plane"></i>
+                  LET'S COLLABORATE <i className="fas fa-paper-plane"></i>
                 </button>
               </div>
             </Reveal>
@@ -282,30 +279,6 @@ const App: React.FC = () => {
                         <p className="text-gray-400 font-medium">{exp.company}</p>
                       </div>
                       <span className="text-[10px] text-gray-500 font-black uppercase tracking-widest bg-black/40 px-4 py-2 rounded-full">{exp.period}</span>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-10">
-              <Reveal>
-                <h3 className="text-3xl font-bold font-heading text-white flex items-center gap-4">
-                  <span className="w-12 h-12 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-indigo-500"><i className="fas fa-star"></i></span> 
-                  Professional Highlights
-                </h3>
-              </Reveal>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {ABOUT_DATA.highlights.map((item, idx) => (
-                  <Reveal key={idx} delay={idx * 150}>
-                    <div className="flex gap-6 p-8 rounded-[2.5rem] bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-all hover:-translate-y-2 h-full">
-                      <div className="w-16 h-16 shrink-0 rounded-3xl bg-indigo-600/10 flex items-center justify-center text-indigo-500 text-2xl shadow-inner">
-                        <i className={`fas ${item.icon}`}></i>
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="text-xl font-bold text-white">{item.title}</h4>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">{item.description}</p>
-                      </div>
                     </div>
                   </Reveal>
                 ))}
@@ -383,19 +356,6 @@ const App: React.FC = () => {
               </Reveal>
             ))}
           </div>
-
-          {filteredProjects.length === 0 && (
-            <Reveal className="py-32 text-center space-y-6">
-              <i className="fas fa-search text-4xl text-gray-800"></i>
-              <p className="text-gray-600 font-bold uppercase tracking-widest text-sm">No archives found for "{projectFilter}"</p>
-              <button 
-                onClick={() => setProjectFilter('All')}
-                className="text-indigo-500 text-[10px] font-black uppercase tracking-widest hover:underline px-6 py-2 bg-indigo-500/10 rounded-full"
-              >
-                Reset Filter
-              </button>
-            </Reveal>
-          )}
         </div>
       </section>
     );
@@ -433,148 +393,36 @@ const App: React.FC = () => {
 
   const ContactView = () => (
     <section className="py-24 lg:py-40 bg-[#030712] min-h-screen relative">
-      {/* Decorative Grid Background */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-      
       <div className="container mx-auto px-6 relative z-10">
         <Reveal className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-px bg-white/10 rounded-[3rem] lg:rounded-[4rem] overflow-hidden border border-white/10 shadow-3xl shadow-indigo-500/5">
-            
-            {/* Left Column: Digital ID Card */}
-            <div className="lg:col-span-5 p-10 lg:p-20 bg-gradient-to-br from-indigo-900/40 to-black/80 backdrop-blur-3xl flex flex-col justify-between">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-px bg-white/10 rounded-[3rem] lg:rounded-[4rem] overflow-hidden border border-white/10 shadow-3xl">
+            <div className="lg:col-span-5 p-10 lg:p-20 bg-gradient-to-br from-indigo-900/40 to-black/80 flex flex-col justify-between">
               <div>
-                <div className="inline-flex items-center gap-3 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full mb-10">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-green-400">Available Now</span>
-                </div>
-                
-                <h2 className="text-5xl lg:text-7xl font-bold font-heading text-white mb-12 leading-none">
-                  Let's <span className="text-indigo-500">Forge</span> <br /> Something.
-                </h2>
-
+                <h2 className="text-5xl lg:text-7xl font-bold font-heading text-white mb-12 leading-none">Let's <span className="text-indigo-500">Forge</span> Something.</h2>
                 <div className="space-y-8">
-                  <div className="group cursor-pointer">
-                    <p className="text-[9px] uppercase text-gray-500 font-black tracking-[0.4em] mb-2">Direct Signal</p>
-                    <div className="flex items-center gap-6">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-xl">
-                        <i className="fas fa-envelope text-xl"></i>
-                      </div>
-                      <span className="text-xl lg:text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">{SOCIAL_LINKS.email}</span>
-                    </div>
+                  <div className="flex items-center gap-6">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-indigo-400 shadow-xl"><i className="fas fa-envelope text-xl"></i></div>
+                    <span className="text-xl lg:text-2xl font-bold text-white">{SOCIAL_LINKS.email}</span>
                   </div>
-
-                  <div className="group cursor-pointer">
-                    <p className="text-[9px] uppercase text-gray-500 font-black tracking-[0.4em] mb-2">Voice Channel</p>
-                    <div className="flex items-center gap-6">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-xl">
-                        <i className="fas fa-phone-volume text-xl"></i>
-                      </div>
-                      <span className="text-xl lg:text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">{SOCIAL_LINKS.phone}</span>
-                    </div>
-                  </div>
-
-                  <div className="group cursor-pointer">
-                    <p className="text-[9px] uppercase text-gray-500 font-black tracking-[0.4em] mb-2">Coordinates</p>
-                    <div className="flex items-center gap-6">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-xl">
-                        <i className="fas fa-map-marker-alt text-xl"></i>
-                      </div>
-                      <span className="text-xl lg:text-2xl font-bold text-white group-hover:text-indigo-400 transition-colors">Manila, PH</span>
-                    </div>
+                  <div className="flex items-center gap-6">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-indigo-400 shadow-xl"><i className="fas fa-phone-volume text-xl"></i></div>
+                    <span className="text-xl lg:text-2xl font-bold text-white">{SOCIAL_LINKS.phone}</span>
                   </div>
                 </div>
-              </div>
-
-              <div className="pt-16 border-t border-white/5 flex gap-5 mt-12">
-                {['facebook', 'instagram', 'github', 'tiktok'].map(social => (
-                  <button 
-                    key={social} 
-                    onClick={() => handleSocialClick(social)} 
-                    className="w-12 h-12 rounded-xl bg-white/5 hover:bg-indigo-600 text-gray-400 hover:text-white border border-white/10 hover:border-indigo-500 transition-all duration-300 flex items-center justify-center shadow-lg"
-                  >
-                    <i className={`fab fa-${social} text-base`}></i>
-                  </button>
-                ))}
               </div>
             </div>
-
-            {/* Right Column: High-Tech Form */}
-            <div className="lg:col-span-7 p-10 lg:p-24 bg-black/40 backdrop-blur-md">
-              {formStatus === 'success' ? (
-                <div className="text-center py-24 animate-in zoom-in h-full flex flex-col justify-center">
-                  <div className="w-28 h-28 bg-indigo-600 rounded-[2.5rem] flex items-center justify-center text-white text-5xl mx-auto mb-10 shadow-[0_0_60px_rgba(79,70,229,0.5)]">
-                    <i className="fas fa-check"></i>
-                  </div>
-                  <h3 className="text-4xl lg:text-5xl font-bold text-white mb-4 font-heading">Signal Authenticated</h3>
-                  <p className="text-gray-400 text-lg lg:text-xl font-medium">Your request has been broadcasted to my neural network. Expect a response soon!</p>
-                  <button 
-                    onClick={() => setFormStatus('idle')}
-                    className="mt-12 mx-auto px-10 py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-indigo-600 transition-all active:scale-95"
-                  >
-                    Start New Uplink
-                  </button>
+            <div className="lg:col-span-7 p-10 lg:p-24 bg-black/40">
+              <form onSubmit={handleFormSubmit} className="space-y-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                  <input required placeholder="Your full name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-transparent border-b border-white/10 py-4 text-white focus:border-indigo-500 outline-none text-lg font-bold transition-all" />
+                  <input required type="email" placeholder="your@email.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-transparent border-b border-white/10 py-4 text-white focus:border-indigo-500 outline-none text-lg font-bold transition-all" />
                 </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-12">
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-white font-heading">Initiate Communication</h3>
-                    <p className="text-gray-500 text-sm">All transmissions are secure and encrypted.</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase text-gray-700 tracking-[0.3em] font-mono">ID_SIGNATURE</label>
-                      <input 
-                        required 
-                        type="text" 
-                        placeholder="Your full name" 
-                        value={formData.name} 
-                        onChange={e => setFormData({...formData, name: e.target.value})} 
-                        className="w-full bg-transparent border-b border-white/10 py-4 text-white focus:border-indigo-500 outline-none placeholder:text-gray-800 text-lg font-bold transition-all" 
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase text-gray-700 tracking-[0.3em] font-mono">UPLINK_TARGET</label>
-                      <input 
-                        required 
-                        type="email" 
-                        placeholder="your@email.com" 
-                        value={formData.email} 
-                        onChange={e => setFormData({...formData, email: e.target.value})} 
-                        className="w-full bg-transparent border-b border-white/10 py-4 text-white focus:border-indigo-500 outline-none placeholder:text-gray-800 text-lg font-bold transition-all" 
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase text-gray-700 tracking-[0.3em] font-mono">DATA_PACKAGE</label>
-                    <textarea 
-                      required 
-                      rows={4} 
-                      placeholder="Describe your project, vision, or query..." 
-                      value={formData.message} 
-                      onChange={e => setFormData({...formData, message: e.target.value})} 
-                      className="w-full bg-white/5 border border-white/5 rounded-[2rem] px-8 py-8 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none resize-none placeholder:text-gray-800 text-base font-medium transition-all"
-                    ></textarea>
-                  </div>
-
-                  <button 
-                    type="submit" 
-                    disabled={formStatus === 'sending'}
-                    className="group w-full py-6 bg-indigo-600 hover:bg-indigo-500 text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-[11px] transition-all shadow-2xl shadow-indigo-600/20 disabled:opacity-50 flex items-center justify-center gap-6 active:scale-[0.98]"
-                  >
-                    {formStatus === 'sending' ? (
-                      <>
-                        <i className="fas fa-sync-alt animate-spin text-xl"></i> Transmitting...
-                      </>
-                    ) : (
-                      <>
-                        Execute Broadcast <i className="fas fa-chevron-right group-hover:translate-x-2 transition-transform"></i>
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
+                <textarea required rows={4} placeholder="Describe your project..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} className="w-full bg-white/5 border border-white/5 rounded-[2rem] px-8 py-8 text-white focus:ring-2 focus:ring-indigo-500/50 outline-none text-base font-medium"></textarea>
+                <button type="submit" disabled={formStatus === 'sending'} className="w-full py-6 bg-indigo-600 text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-[11px] transition-all shadow-2xl shadow-indigo-600/20 active:scale-[0.98]">
+                  {formStatus === 'sending' ? 'Transmitting...' : 'Execute Broadcast'}
+                </button>
+              </form>
             </div>
           </div>
         </Reveal>
@@ -583,42 +431,24 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen relative selection:bg-indigo-500/30 overflow-x-hidden">
+    <div className="min-h-screen relative selection:bg-indigo-500/30 overflow-x-hidden bg-[#030712]">
       <Navbar />
-
       <main className="relative">
         {currentHash === '#home' && <HomeView />}
         {currentHash === '#about' && <AboutView />}
         {currentHash === '#projects' && <ProjectsView />}
         {currentHash === '#skills' && <SkillsView />}
-        {currentHash === '#ai-twin' && <div className="pt-24 min-h-screen bg-gray-950/50"><AIAssistant /></div>}
+        {currentHash === '#ai-twin' && <div className="pt-24 min-h-screen"><AIAssistant /></div>}
         {currentHash === '#contact' && <ContactView />}
       </main>
 
       {selectedProject && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"><div className="fixed inset-0 bg-black/98 backdrop-blur-3xl" onClick={() => setSelectedProject(null)}></div><div className="relative w-full max-w-5xl glass-card rounded-[4rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] animate-in zoom-in border-white/10 flex flex-col md:flex-row"><div className="md:w-1/2 h-80 md:h-auto overflow-hidden"><img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" /></div><div className="p-16 md:w-1/2 bg-[#0a0a0a] flex flex-col justify-center"><h2 className="text-5xl font-bold text-white mb-8 leading-none">{selectedProject.title}</h2><p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">{selectedProject.description}</p><div className="flex gap-6"><a href={selectedProject.link} target="_blank" className="flex-1 py-5 bg-indigo-600 hover:bg-indigo-500 text-white text-center rounded-2xl font-black uppercase text-[10px] tracking-widest transition-all shadow-xl">Live View</a><button onClick={() => setSelectedProject(null)} className="flex-1 py-5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/10 transition-all">Close</button></div></div></div></div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"><div className="fixed inset-0 bg-black/98 backdrop-blur-3xl" onClick={() => setSelectedProject(null)}></div><div className="relative w-full max-w-5xl glass-card rounded-[4rem] overflow-hidden border-white/10 flex flex-col md:flex-row"><div className="md:w-1/2 h-80 md:h-auto overflow-hidden"><img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" /></div><div className="p-16 md:w-1/2 bg-[#0a0a0a] flex flex-col justify-center"><h2 className="text-5xl font-bold text-white mb-8">{selectedProject.title}</h2><p className="text-gray-400 text-lg mb-10">{selectedProject.description}</p><div className="flex gap-6"><a href={selectedProject.link} target="_blank" className="flex-1 py-5 bg-indigo-600 text-white text-center rounded-2xl font-black uppercase text-[10px] tracking-widest">Live View</a><button onClick={() => setSelectedProject(null)} className="flex-1 py-5 bg-white/5 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest border border-white/10">Close</button></div></div></div></div>
       )}
 
       <footer className="py-24 bg-[#030712] border-t border-white/5">
         <div className="container mx-auto px-6 text-center">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-16">
-            <button onClick={() => navigateTo('#home')} className="text-4xl font-black font-heading tracking-tighter text-indigo-500 group">
-              RYAN<span className="text-white group-hover:text-indigo-400 transition-colors">.DEV</span>
-            </button>
-            <div className="flex flex-wrap justify-center gap-10">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map(l => (
-                <button key={l} onClick={() => navigateTo(`#${l.toLowerCase()}`)} className="text-gray-500 hover:text-white font-black uppercase text-[10px] tracking-[0.4em] transition-all">{l}</button>
-              ))}
-            </div>
-          </div>
-          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-gray-700 text-[9px] font-black uppercase tracking-[0.4em]">© {new Date().getFullYear()} Ryan Cerda | BSIT Graduate | Manila, PH.</p>
-            <div className="flex gap-6">
-              {['facebook', 'github', 'instagram', 'linkedin'].map(s => (
-                <button key={s} onClick={() => handleSocialClick(s)} className="text-gray-700 hover:text-indigo-500 transition-colors"><i className={`fab fa-${s}`}></i></button>
-              ))}
-            </div>
-          </div>
+          <p className="text-gray-700 text-[9px] font-black uppercase tracking-[0.4em]">© {new Date().getFullYear()} Ryan Cerda | BSIT Graduate | Manila, PH.</p>
         </div>
       </footer>
     </div>

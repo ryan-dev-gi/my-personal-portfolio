@@ -1,4 +1,3 @@
-
 import { Project, Skill } from './types';
 
 export const ABOUT_DATA = {
