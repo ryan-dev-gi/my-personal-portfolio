@@ -189,7 +189,7 @@ const App: React.FC = () => {
                     alt="Ryan Cerda" 
                     className="w-full h-full object-cover" 
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=Ryan+Cerda&background=6366f1&color=fff&size=512';
+                      (e.target as HTMLImageElement).src = '/profile.png';
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
