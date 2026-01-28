@@ -1,0 +1,8 @@
+{
+  "name": "My Personal Portfolio",
+  "description": "A cutting-edge 3D portfolio featuring interactive visuals, project showcases, and a Gemini-powered AI twin assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
