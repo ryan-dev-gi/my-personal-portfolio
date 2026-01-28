@@ -183,7 +183,7 @@ const App: React.FC = () => {
               <div className="glass-card rounded-[2.5rem] p-8 border-indigo-500/20 shadow-2xl space-y-8 group">
                 <div className="aspect-square rounded-[2rem] overflow-hidden relative border-4 border-indigo-500/10 transition-transform duration-500 group-hover:scale-[1.02]">
                   <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" 
+                    src={ABOUT_DATA.profileImage} 
                     alt="Ryan Cerda" 
                     className="w-full h-full object-cover" 
                   />

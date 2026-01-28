@@ -4,6 +4,7 @@ import { Project, Skill } from './types';
 export const ABOUT_DATA = {
   title: "Professional Profile",
   subtitle: "Cerda Ryan, A.",
+  profileImage: "/profile.png",
   description: "I am a beginner web developer who is eager to learn, improve, and grow in the field of web development. Even though I am still learning, I am committed to delivering my best work and ensuring client satisfaction in every project.",
   personalInfo: [
     { label: "Age", value: "24-year-old" },
